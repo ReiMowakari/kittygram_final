@@ -133,7 +133,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: "docker-compose.production.yml"
-          target: "Kittygram"
+          target: "kittygram"
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -142,16 +142,14 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd Kittygram
-            # Выполняет pull образов с Docker Hub
+            cd kittygram
             sudo docker compose -f docker-compose.production.yml pull
-            # Перезапускает все контейнеры в Docker Compose
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
             # Выполняет миграции и сбор статики
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py migrate
             sudo docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
-            sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/static/. /static/static/
+            sudo docker compose -f docker-compose.production.yml exec backend cp -r /app/collected_static/. /backend_static/static/
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
