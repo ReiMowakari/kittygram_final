@@ -2,4 +2,4 @@ FROM python:3.9
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt --no-cache-dir
-CMD ["gunicorn", "--bind", "0.0.0.0:9000", "backend.wsgi"]
+CMD ["gunicorn", "--bind", "0.0.0.0:9000", "kittygram_backend.wsgi"]
