@@ -1,5 +1,4 @@
 FROM python:3.9
-RUN echo "${DOCKER_USERNAME}" > /tmp/docker_username && chmod 0400 /tmp/docker_username
 WORKDIR /app
 RUN pip install gunicorn==20.1.0
 COPY requirements.txt .
