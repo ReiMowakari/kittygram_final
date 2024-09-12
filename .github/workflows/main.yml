@@ -144,7 +144,7 @@ jobs:
           script: |
             cd kittygram
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
-            run: echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
+            echo "Docker Username: ${{ secrets.DOCKER_USERNAME }}"
             sudo docker compose -f docker-compose.production.yml pull
             sudo docker compose -f docker-compose.production.yml down
             sudo docker compose -f docker-compose.production.yml up -d
