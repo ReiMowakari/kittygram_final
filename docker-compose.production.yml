@@ -11,7 +11,7 @@ services:
       - pg_data:/var/lib/postgresql/data
   backend:
     environment:
-      ENV_USERNAME: ${ENV_USERNAME:-default_value}
+      ENV_USERNAME: ${ENV_USERNAME}
     image: ${ENV_USERNAME}/kittygram_backend
     env_file: .env
     depends_on:
@@ -21,7 +21,7 @@ services:
       - media:/app/media
   frontend:
     environment:
-      ENV_USERNAME: ${ENV_USERNAME:-default_value}
+      ENV_USERNAME: ${ENV_USERNAME}
     image: ${ENV_USERNAME}/kittygram_frontend
     env_file: .env
     command: cp -r /app/build/. /static/
@@ -29,7 +29,7 @@ services:
       - static:/static
   gateway:
     environment:
-      ENV_USERNAME: ${ENV_USERNAME:-default_value}
+      ENV_USERNAME: ${ENV_USERNAME}
     image: ${ENV_USERNAME}/kittygram_gateway
     env_file: .env
     ports:
