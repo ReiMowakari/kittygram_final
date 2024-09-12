@@ -1,3 +1,6 @@
+secrets:
+  DOCKER_USERNAME: ${DOCKER_USERNAME}
+
 volumes:
   pg_data:
   static:
@@ -10,7 +13,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
   backend:
-    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_backend:latest
+    image: ${DOCKER_USERNAME}/kittygram_backend:latest
     env_file: .env
     depends_on:
       - db
@@ -18,13 +21,13 @@ services:
       - static:/backend_static/
       - media:/app/media
   frontend:
-    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_frontend:latest
+    image: ${DOCKER_USERNAME}/kittygram_frontend:latest
     env_file: .env
     command: cp -r /app/build/. /static/
     volumes:
       - static:/static
   gateway:
-    image: ${{ secrets.DOCKER_USERNAME }}/kittygram_gateway:latest
+    image: ${DOCKER_USERNAME}/kittygram_gateway:latest
     env_file: .env
     ports:
       - 9000:80
